@@ -1,0 +1,29 @@
+%table{ cellspacing: 0 }
+  %thead
+    %tr
+      %td Title
+      %td Source
+      %td Last Reviewed
+      %td
+      %td Assigned
+      %td
+  %tbody
+    - @documents.each do |document|
+      %tr
+        %td= document.title
+        %td
+          - if document.source == 'github'
+            %i.fa.fa-2x.fa-github
+          - elsif document.source == 'intercom'
+            = image_tag 'intercom', style: 'height: 22px;'
+          - else
+            %i.source-icon= document.source[0].capitalize
+        %td= document.last_review.present? ? document.last_review : '-'
+        %td
+          = link_to 'view', document.original_documentation
+        %td
+          %i.fa.fa-user-circle.fa-2x{ style: 'color:#CCC' }
+          = document.assigned_to.name
+        %td
+          %button 👍
+     

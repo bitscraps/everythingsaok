@@ -1,0 +1,17 @@
+%div{style: 'float:right;margin-right:5%;'} 
+  = link_to 'New User', new_settings_user_path,  style: 'color:#000' 
+
+
+%table{ cellspacing: 0 }
+  %thead
+    %tr
+      %td Name
+      %td Email
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.email
+
+        
+

@@ -1,0 +1,8 @@
+= form_for @store, url: settings_document_stores_intercom_helpdesk_index_path, method: :post do |f|
+  = f.label :name
+  = f.text_field :name
+
+  = f.label :user
+  = f.text_field :user
+
+  = f.submit

@@ -1,0 +1,16 @@
+%div{style: 'float:right;margin-right:5%;'} 
+  = link_to 'New Github Wiki Store', new_settings_document_stores_github_wiki_path,  style: 'color:#000' 
+  = link_to 'New Intercom Helpdesk Store', new_settings_document_stores_intercom_helpdesk_path, style: 'color:#000' 
+
+
+%table{ cellspacing: 0 }
+  %thead
+    %tr
+      %td Type
+      %td Name
+  %tbody
+    - @stores.each do |store|
+      %tr
+        %td= store.type
+        %td= store.name
+

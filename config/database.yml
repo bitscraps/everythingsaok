@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 250
+  username: <%= ENV['DB_USERNAME'] %>
+  host: localhost
+  password: <%= ENV['DB_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: documentation_review_develop
+
+test:
+  <<: *default
+  port: <%= ENV.fetch('DB_PORT', '5432') %>
+  database: documentation_review_test
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV["DB_POOL"] ||  ENV['PUMA_MAX_THREADS'].to_i * ENV['WEB_CONCURRENCY'].to_i || 5 %>

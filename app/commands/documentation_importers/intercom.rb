@@ -1,3 +1,5 @@
+require 'find'
+
 module DocumentationImporters
   class Intercom
     attr_accessor :user, :store
@@ -8,7 +10,7 @@ module DocumentationImporters
     end
 
     def import
-      `cd /tmp && wget --limit-rate 50k -r -l2 https://intercom.help/#{user}`
+      `cd /tmp && wget --limit-rate 50k -r -R jpg,png,js,css -l2 https://intercom.help/#{user}`
       files = []
       Find.find("/tmp/intercom.help/#{user}") do |path|
         next if FileTest.directory?(path)

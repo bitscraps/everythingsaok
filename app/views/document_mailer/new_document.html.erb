@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>There's something new for you to AOK</h1>
+    <p>
+      The following document needs a review from you.
+    </p>
+    <p>
+      <%= @document.title %>
+    </p>
+    <p>
+      <a href='<%= @document.original_documentation %>'>Review the doc</a>
+    </p>
+  </body>
+</html>

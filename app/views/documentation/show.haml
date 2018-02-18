@@ -5,7 +5,7 @@
     = image_tag documentation_badge_path(documentation_id: params[:id])
     %br
     %textarea{ rows: 1, cols:48 }
-      = raw(image_tag documentation_badge_path(documentation_id: params[:id]))
+      = raw(image_tag documentation_badge_url(documentation_id: params[:id]))
 
 %table{ cellspacing: 0 }
   %thead

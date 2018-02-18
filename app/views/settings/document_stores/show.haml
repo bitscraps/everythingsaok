@@ -8,9 +8,11 @@
     %tr
       %td Type
       %td Name
+      %td
   %tbody
     - @stores.each do |store|
       %tr
         %td= store.type
         %td= store.name
+        %td= link_to 'Update', settings_document_stores_path(id: store.id), method: :patch
 

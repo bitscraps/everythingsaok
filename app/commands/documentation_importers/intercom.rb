@@ -21,7 +21,10 @@ module DocumentationImporters
         next unless documentation
         title = find_title(documentation) || convert_to_title(file)
 
-        Document.create(title: title, source: 'intercom', original_documentation: convert_to_original_url(file), assigned_to: User.all.sample)
+        source_url = convert_to_original_url(file)
+
+        next if Document.find_by(original_documentation: source_url)
+        Document.create(title: title, source: 'intercom', original_documentation: source_url, assigned_to: User.all.sample)
       end
 
       FileUtils.remove_dir('/tmp/intercom.help')

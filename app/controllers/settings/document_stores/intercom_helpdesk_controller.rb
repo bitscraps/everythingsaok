@@ -1,6 +1,8 @@
 module Settings
   module DocumentStores
     class IntercomHelpdeskController < ApplicationController
+      before_action :authenticate_user!
+      
       def new
         @store = DocumentStore::IntercomHelpdesk.new()
       end

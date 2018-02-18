@@ -1,6 +1,8 @@
 module Settings
   module DocumentStores
     class GithubWikiController < ApplicationController
+      before_action :authenticate_user!
+      
       def new
         @store = DocumentStore::GithubWiki.new()
       end

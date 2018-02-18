@@ -16,15 +16,17 @@ module DocumentationImporters
 
         documentation = read_file("#{destination_directory}/#{file}")
         title = find_title(documentation) || convert_to_title(file)
+        source_url = "https://github.com/#{user}/#{project}/wiki/#{no_extension(file)}"
 
-        Document.create(title: title, source: 'github', original_documentation: "https://github.com/#{user}/#{project}/wiki/#{no_extension(file)}", assigned_to: User.all.sample)
+        next if Document.find_by(original_documentation: source_url)
+        Document.create(title: title, source: 'github', original_documentation: source_url, assigned_to: User.all.sample)
       end
 
       FileUtils.remove_dir(destination_directory)
       return "Import Complete"
-    # rescue
-    #   FileUtils.remove_dir(destination_directory)
-    #   return "Import Failed"
+    rescue
+      FileUtils.remove_dir(destination_directory)
+      return "Import Failed"
     end
 
     private

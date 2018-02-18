@@ -28,11 +28,11 @@ module DocumentationImporters
 
         next if Document.find_by(original_documentation: source_url)
         user = User.all.sample
-        Document.create(title: title,
-                        source: 'intercom',
-                        original_documentation: source_url,
-                        document_store: store,
-                        assigned_to: user)
+        document = Document.create(title: title,
+                                   source: 'intercom',
+                                   original_documentation: source_url,
+                                   document_store: store,
+                                   assigned_to: user)
         DocumentMailer.new_document(user, document).deliver
       end
 

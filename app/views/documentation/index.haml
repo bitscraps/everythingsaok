@@ -15,7 +15,7 @@
           - if document.source == 'github'
             %i.fa.fa-2x.fa-github
           - elsif document.source == 'intercom'
-            = image_tag 'intercom', style: 'height: 22px;'
+            = image_tag 'intercom.png', style: 'height: 22px;'
           - else
             %i.source-icon= document.source[0].capitalize
         %td= document.last_review.present? ? document.last_review : '-'

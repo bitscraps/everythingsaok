@@ -2,7 +2,6 @@
   %thead
     %tr
       %td Title
-      %td Source
       %td Last Reviewed
       %td
       %td Assigned
@@ -10,7 +9,6 @@
   %tbody
     - @documents.each do |document|
       %tr
-        %td= link_to document.title, documentation_path(document.id)
         %td
           - if document.source == 'github'
             %i.fa.fa-2x.fa-github
@@ -18,12 +16,20 @@
             = image_tag 'intercom.png', style: 'height: 22px;'
           - else
             %i.source-icon= document.source[0].capitalize
+          &nbsp;
+          = link_to document.title, documentation_path(document.id)
         %td= document.last_review.present? ? document.last_review : '-'
         %td
           = link_to 'view', document.original_documentation
         %td
           %i.fa.fa-user-circle.fa-2x{ style: 'color:#CCC' }
-          = document.assigned_to.name
+          - if document.assigned_to.present?
+            - if document.assigned_to.name.present?
+              = document.assigned_to.name
+            - else
+              = get_name_from(document.assigned_to.email)
+          - else
+            N/A
         %td
-          %button 👍
+          = link_to '👍', documentation_approve_path(document.id), method: :create, data: { confirm: 'I agree that this all looks A.OK?'}, style: 'text-decoration: none;'
      

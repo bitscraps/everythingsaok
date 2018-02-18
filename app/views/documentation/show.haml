@@ -1,1 +1,27 @@
-= image_tag documentation_badge_path(documentation_id: params[:id])
+%center
+  .col-6
+    %h2 Add this to your page
+  .col-6
+    = image_tag documentation_badge_path(documentation_id: params[:id])
+    %br
+    %textarea{ rows: 1, cols:48 }
+      = raw(image_tag documentation_badge_path(documentation_id: params[:id]))
+
+%table{ cellspacing: 0 }
+  %thead
+    %tr
+      %td Reviewed At
+      %td Reviewed By
+  %tbody
+    - @document.reviews.order(created_at: :desc).each do |review|
+      %tr
+        %td= review.created_at.strftime('%d %B %Y %H:%M') 
+        %td
+          %i.fa.fa-user-circle.fa-2x{ style: 'color:#CCC' }
+          - if review.review_by.present?
+            - if review.review_by.name.present?
+              = review.review_by.name
+            - else
+              = get_name_from(review.review_by.email)
+          - else
+            N/A

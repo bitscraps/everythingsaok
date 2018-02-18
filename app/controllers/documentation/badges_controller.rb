@@ -15,11 +15,10 @@ class Documentation::BadgesController < ApplicationController
     base_image = MiniMagick::Image.open("#{Rails.root}/app/assets/images/badge_base.png")
     base_image.combine_options do |c|
       if @document.last_review
-        c.draw 'text 60,15 "Last Reviewed "'
-        c.draw 'text 60,27 "on the 18th October 2017"'
-        c.draw 'text 60,39 "By Dan Morris"'
+        c.draw "text 162,30 \"#{@document.last_review.strftime('%d %B %Y')}\""
+        c.draw "text 172,51 \"#{@document.reviews.last.review_by.email}\""
       else
-        c.draw 'text 60,15 "Not Yet Reviewed"'
+        c.draw 'text 162,30 "Not Yet Reviewed"'
       end
       # c.font '-*-helvetica-*-r-*-*-18-*-*-*-*-*-*-2'
       # c.fill("#FFFFFF")

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :documentation, only: [:index, :show] do
     resource :badge, only: :show, controller: 'documentation/badges'
+    resource :approve, only: :create, controller: 'documentation/approve'
   end
 
   namespace :settings do

@@ -99,3 +99,29 @@ form {
     margin: 10px 40% 0 40%;
   }
 }
+
+.badge {
+  clear: both;
+  border: 3px SOLID #000;
+  border-radius:15px;
+  width:420px;
+
+  .reviewer-icon {
+    float:left;
+    margin:10px;
+  }
+  .details {
+  margin-top:10px;
+    float:left;
+  }
+  .brand {
+    width:100%;
+    display:block;
+    background-color:#000;
+    color: #FFF;
+    text-align:center;
+    padding: 5px 0;
+    clear:both;
+  }
+}
+ 

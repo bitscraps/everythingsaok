@@ -1,17 +1,18 @@
 module DocumentationImporters
   class Intercom
-    attr_accessor :project, :user
+    attr_accessor :user, :store
 
-    def initialize(user)
-      self.user = user
+    def initialize(store)
+      self.store = store
+      self.user = store.user
     end
 
     def import
-      `cd /tmp && wget -r -l2 https://intercom.help/sofar-sounds`
+      `cd /tmp && wget -r -l2 https://intercom.help/#{user}`
       files = []
       Find.find("/tmp/intercom.help/#{user}") do |path|
         next if FileTest.directory?(path)
-        files << path unless path =~/\.html/
+        files << path unless path =~ /\.html/
       end
 
       puts files
@@ -24,32 +25,32 @@ module DocumentationImporters
         source_url = convert_to_original_url(file)
 
         next if Document.find_by(original_documentation: source_url)
-        Document.create(title: title, source: 'intercom', original_documentation: source_url, assigned_to: User.all.sample)
+        Document.create(title: title,
+                        source: 'intercom',
+                        original_documentation: source_url,
+                        document_store: store,
+                        assigned_to: User.all.sample)
       end
 
       FileUtils.remove_dir('/tmp/intercom.help')
-    #   return "Import Complete"
-    # # rescue
-    # #   FileUtils.remove_dir(destination_directory)
-    # #   return "Import Failed"
+      return 'Import Complete'
+    rescue
+      FileUtils.remove_dir(destination_directory)
+      return 'Import Failed'
     end
 
     private
 
-    # def destination_directory
-    #   "/tmp/#{project}"
-    # end
-
     def find_title(documentation)
       html = documentation[/\<title>.*?\<\/title>/]
-      if html
-        html.gsub!(/\<title\>/, '').gsub!(/\<\/title>/, '')
-        html.gsub!(/\| Sofar Sounds Platform Help Center/, '')
-      end
+      return unless html
+
+      html.gsub!(/\<title\>/, '').gsub!(/\<\/title>/, '')
+      html.gsub!(/\| .*? Help Center/, '')
     end
 
     def read_file(file_name)
-      file = File.open(file_name, "r")
+      file = File.open(file_name, 'r')
       data = file.read
       file.close
       return data
@@ -62,9 +63,5 @@ module DocumentationImporters
     def convert_to_original_url(file)
       file.gsub(/\/tmp\//, 'https://')
     end
-
-    # def markdown
-    #   @renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensions = {})
-    # end
   end
 end

@@ -1,10 +1,11 @@
 module DocumentationImporters
   class GithubWiki
-    attr_accessor :project, :user
+    attr_accessor :project, :user, :store
 
-    def initialize(user, project)
-      self.user = user
-      self.project = project
+    def initialize(store)
+      self.store = store
+      self.user = store.user
+      self.project = store.project
     end
 
     def import
@@ -18,13 +19,18 @@ module DocumentationImporters
         title = find_title(documentation) || convert_to_title(file)
         source_url = "https://github.com/#{user}/#{project}/wiki/#{no_extension(file)}"
 
-        next if Document.find_by(original_documentation: source_url)
-        Document.create(title: title, source: 'github', original_documentation: source_url, assigned_to: User.all.sample)
+        next if Document.find_by(original_documentation: source_url).present?
+        Document.create(title: title,
+                        source: 'github',
+                        original_documentation: source_url,
+                        document_store: store,
+                        assigned_to: User.all.sample)
       end
 
       FileUtils.remove_dir(destination_directory)
       return "Import Complete"
     rescue
+      raise
       FileUtils.remove_dir(destination_directory)
       return "Import Failed"
     end

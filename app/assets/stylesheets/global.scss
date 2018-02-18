@@ -83,6 +83,23 @@ form {
   margin:50px 30% 0 30%;
   padding: 30px;
 
+   &.condensed {
+    width:100%;
+    margin-right: 5%;
+    background-color: transparent !important;
+    display: inline-block;
+
+    input { 
+      width:auto;
+    }
+
+    input[type=submit] {
+      width: auto;
+      margin: 0;
+    }
+
+  }
+
   label {
     width:100%
   }

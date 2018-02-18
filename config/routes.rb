@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"
+
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   resources :home, only: :index
 
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
     resource :badge, only: :show, controller: 'documentation/badges'
     resource :approve, only: :create, controller: 'documentation/approve'
   end
+
+  resources :invites, only: :create
 
   namespace :settings do
     resource :document_stores, only: [:show, :update] do

@@ -2,6 +2,7 @@ class Settings::UsersController < ApplicationController
   before_action :authenticate_user!
   def index
     @users = User.all
+    @invites = Invite.all
   end
 
   def new

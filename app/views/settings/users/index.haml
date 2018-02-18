@@ -1,5 +1,9 @@
-%div{style: 'float:right;margin-right:5%;'} 
-  = link_to 'New User', new_settings_user_path,  style: 'color:#000' 
+%div{style: 'float:right;margin-right:10%;'} 
+
+  = form_for :invite, url: invites_path, method: :post, html: { class: 'condensed' } do |f|
+    %p Add email to invite a user
+    = f.text_field :email, placeholder: 'email'
+    = f.submit 'Invite'
 
 
 %table{ cellspacing: 0 }
@@ -12,6 +16,20 @@
       %tr
         %td= user.name
         %td= user.email
+
+%table{ cellspacing: 0 }
+  %thead
+    %tr
+      %td Email
+      %td Sent at
+      %td Status
+  %tbody
+    - @invites.each do |invite|
+      %tr
+        %td= invite.email
+        %td= invite.created_at.strftime('%d %B %Y')
+        %td
+          %em Pending
 
         
 

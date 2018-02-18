@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :documentation, only: :index
+  resources :documentation, only: [:index, :show] do
+    resource :badge, controller: 'documentation/badges'
+  end
 
   namespace :settings do
     resource :document_stores, only: :show do

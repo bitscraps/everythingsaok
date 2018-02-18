@@ -9,7 +9,7 @@ module DocumentationImporters
     end
 
     def import
-      `git clone git@github.com:#{user}/#{project}.wiki.git #{destination_directory}`
+      `git clone https://#{store.oauth_token}:x-oauth-basic@github.com/#{user}/#{project}.wiki.git #{destination_directory}`
       files = Dir.entries(destination_directory)
 
       files.each do |file|
@@ -17,7 +17,7 @@ module DocumentationImporters
 
         documentation = read_file("#{destination_directory}/#{file}")
         title = find_title(documentation) || convert_to_title(file)
-        source_url = "https://#{store.oauth_token}:x-oauth-basic@github.com/#{user}/#{project}/wiki/#{no_extension(file)}"
+        source_url = "https://github.com/#{user}/#{project}/wiki/#{no_extension(file)}"
 
         next if Document.find_by(original_documentation: source_url).present?
         user = User.all.sample

@@ -8,7 +8,7 @@ module DocumentationImporters
     end
 
     def import
-      `cd /tmp && wget --limit-rate 60k -r -l2 https://intercom.help/#{user}`
+      `cd /tmp && wget --limit-rate 150k -r -l2 https://intercom.help/#{user}`
       files = []
       Find.find("/tmp/intercom.help/#{user}") do |path|
         next if FileTest.directory?(path)
@@ -37,7 +37,7 @@ module DocumentationImporters
       FileUtils.remove_dir('/tmp/intercom.help')
       return 'Import Complete'
     rescue
-      FileUtils.remove_dir(destination_directory)
+      FileUtils.remove_dir('/tmp/intercom.help')
       return 'Import Failed'
     end
 

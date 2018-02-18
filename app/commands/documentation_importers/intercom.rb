@@ -8,7 +8,7 @@ module DocumentationImporters
     end
 
     def import
-      `cd /tmp && wget -r -l2 https://intercom.help/#{user}`
+      `cd /tmp && wget --limit-rate 60k -r -l2 https://intercom.help/#{user}`
       files = []
       Find.find("/tmp/intercom.help/#{user}") do |path|
         next if FileTest.directory?(path)

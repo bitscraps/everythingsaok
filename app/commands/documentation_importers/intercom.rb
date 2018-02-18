@@ -37,6 +37,7 @@ module DocumentationImporters
       FileUtils.remove_dir('/tmp/intercom.help')
       return 'Import Complete'
     rescue
+      raise
       FileUtils.remove_dir('/tmp/intercom.help')
       return 'Import Failed'
     end

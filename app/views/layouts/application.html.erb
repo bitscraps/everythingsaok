@@ -19,6 +19,13 @@
           <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
         </ul>
       </nav>
+    <% else %>
+       <nav>
+        <ul>
+          <li>Everythings <strong>A.OK</strong>
+          <li style='float:right;'><%= link_to 'Sign In', new_user_registration_path %></li>
+        </ul>
+      </nav>
     <% end %>
     <div class='flash'>
       <p class="notice"><%= notice %></p>

@@ -2,17 +2,101 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      $light-grey: #eee;
+
+      body {
+        font-family: sans-serif;
+        background: #fff;
+      }
+
+      .email {
+        &--background {
+          background: #eee;
+          padding: 10px;
+          text-align: center;
+        }
+
+        &--container {
+          max-width: 500px;
+          background: #fff;
+          margin: 0 auto;
+          overflow: hidden;
+          border-radius: 5px;
+        }
+
+        &--inner-container {
+          padding: 0 5% 40px;
+        }
+      }
+
+      .pre-header {
+        @extend .email--container;
+        background: #eee;
+        color: #eee;
+        font-size: 5px;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: darken(#eee, 30);
+        margin-bottom: 30px;
+      }
+
+      .cta {
+        display: inline-block;
+        padding: 10px 20px;
+        color: #fff;
+        background: #373629;
+        text-decoration: none;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 5px;
+        font-size: 13px;
+      }
+
+      .footer-junk {
+        padding: 20px;
+        font-size: 10px;
+
+        a {
+          color: darken(#eee, 20);
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>There's something new for you to AOK</h1>
-    <p>
-      The following document needs a review from you.
-    </p>
-    <p>
-      <%= @document.title %>
-    </p>
-    <p>
-      <a href='<%= @document.original_documentation %>'>Review the doc</a>
-    </p>
-  </body>
+    <div class="email--background">
+
+    <div class="pre-header">
+      There's something new for you to A.OK
+    </div>
+    
+    <div class="email--container">
+      <!-- <img src="https://images.unsplash.com/photo-1473042904451-00171c69419d?auto=format&fit=crop&w=600&q=600"> -->
+
+      <div class="email--inner-container">
+        <p>
+            The following document needs a review from you.
+        </p>
+        <p>
+          <%= @document.title %>
+        </p>
+        <a href="<%= @document.original_documentation %>" class="cta">Review the doc</a>
+      </div>
+
+    </div>
+
+    <div class="footer-junk">
+      <a href="#">Unsubscribe</a>
+    </div>
+
+    </div>
+    </body>
 </html>

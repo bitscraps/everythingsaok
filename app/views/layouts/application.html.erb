@@ -13,6 +13,7 @@
     <% if current_user %>
       <nav>
         <ul>
+          <li><%= link_to 'Dashboard', dashboard_path %></li>
           <li><%= link_to 'Documentation', documentation_index_path %></li>
           <li><%= link_to 'Users', settings_users_path %></li>
           <li><%= link_to 'Stores', settings_document_stores_path %></li>
